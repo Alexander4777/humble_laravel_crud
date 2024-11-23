@@ -14,6 +14,13 @@
 </head>
 
 <body class="bg-gray-200">
+    <div class="container mx-auto flex justify-between items-center"> <a href="#" class="text-white text-xl font-bold">Mi Sitio</a>
+        <ul class="flex space-x-4">
+            <li><a href="/" class="text-blue-500 hover:text-gray-200">Inicio</a></li>
+            <li><a href="/lista" class="text-blue-500 hover:text-gray-200">Lista</a></li>
+            <li><a href="/grafica" class="text-blue-500 hover:text-gray-200">Grafica</a></li>
+        </ul>
+    </div>
     <main class="relative top-[100px]">
         <form action="/addGasto" method="post" class="flex flex-col w-1/3 h-[200px] items-center m-auto bg-red-500 rounded-lg">
             @csrf
@@ -26,51 +33,6 @@
             <input type="number" name="cantidad" id="cantidad"><br>
             <input type="submit" value="Agregar" class="w-1/4 bg-blue-500 rounded-lg">
         </form>
-
-        <div>
-            <canvas id="myChart"></canvas>
-        </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-
-        <script>
-            const ctx = document.getElementById('myChart');
-            async function datos() {
-                const res = await fetch('http://localhost:8000/gastos');
-                const json = await res.json();
-                console.log(json);
-                const filteredUsers = json.map(user => {
-                    return Object.fromEntries(Object.entries(user).filter(([key]) => key === 'cantidad' || key === 'fecha'));
-                });
-                console.log(filteredUsers);
-                new Chart(ctx, {
-                type: 'line',
-                data: {
-                    datasets: [{
-                        data: filteredUsers
-                    }]
-                },
-                options: {
-                    parsing: {
-                        xAxisKey: 'fecha',
-                        yAxisKey: 'cantidad'
-                    },
-                    scales: {
-                        x: {
-                            type: 'time',
-                        }
-                    }
-                }
-            });
-                return filteredUsers;
-            }
-
-            datos();
-            
-            
-        </script>
     </main>
 </body>
 

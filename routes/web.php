@@ -53,3 +53,7 @@ Route::get('/delete/{id}', function ($id) {
     $gasto->delete();
     return redirect('/lista');
 })->name('route.delete');
+
+Route::get('/grafica', function () {
+    return view('grafica');
+});
